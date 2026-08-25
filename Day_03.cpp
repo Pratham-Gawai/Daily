@@ -19,5 +19,7 @@ int func1(vector<int>& nums, int k) {
     }
 
 int main() {
+    vector<int> temp = { 2,5,4,9,6,8,3,10,12,13,15};
+    cout<< func1(temp,8);
     return 0;
 }
