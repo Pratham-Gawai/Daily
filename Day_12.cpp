@@ -1,10 +1,11 @@
-#include <algorithm>
 #include <iostream>
-#include <unordered_map>
+#include <algorithm>
 #include <vector>
+#include<numeric>
+#include<unordered_map>
+#include<numeric>
 
 using namespace std;
-
 // this code TC : O(n) and SC : O(n)
 int min_count(vector<int> &nums, int x) {
     int temp = x;
@@ -53,10 +54,40 @@ int min_count(vector<int> &nums, int x) {
     int mini = min({count1, count2, count3});
     return (mini == INT_MAX || mini == 0) ? -1 : mini;
 }
+
+
+// MY Second Approach TC : O(n) and SC :O(n)
+int minOperations(vector<int> &nums, int x) {
+    int total = accumulate(nums.begin(), nums.end(), 0);
+    if(total == x) return nums.size();
+    if(total-x<0) return -1;
+
+
+    int sum = 0;
+    int sp = 0;
+    int count2{};
+    int n = nums.size();
+    for(int curr = 0;curr<2*n && sp<n ;curr++){
+        sum += nums[curr % n];
+        
+        while(sum>x && sp<curr){
+            sum -= nums[sp % n];
+            sp++;
+        }
+
+        if(sum == x){
+            if(curr >= n){
+                count2 = min(count2,curr - sp + 1);
+            }
+        }
+    }
+    return (count2==INT_MAX) ? -1 : count2;
+}
+
 int main() {
     vector<int> nums = {6, 6, 6, 6, 6, 6, 6, 5};
-    int x = 5;
+    int x = 12;
     cout << boolalpha;
-    cout << min_count(nums, x);
+    cout << minOperations(nums, x);
     return 0;
 }
