@@ -12,13 +12,13 @@ string func(int sum , int num){
     }
     while(num>0){
         int dig = (sum>=9) ? 9 : 0;
-        ans+=dig;
+        ans+=to_string(dig);
         sum-=dig;
-        nums
+        num--;
     }
-
+    return ans;
 }
 int main() {
-    cout<<"hello";
+    cout << func(39,4);
     return 0;
 }
